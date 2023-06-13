@@ -2,7 +2,7 @@ def solution(park, routes):
     n_row = len(park)
     n_col = len(park[0])
     
-    #시작, 장애물 위치 찾기 -> park는 일차원 리스트~,~
+    #시작, 장애물 위치 찾기
     blocks = []
     for i in range(n_row):
         for j in range(n_col):
