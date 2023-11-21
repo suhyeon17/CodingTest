@@ -1,29 +1,14 @@
-import math
-
 def solution(n, words):
-    word_dict, idx = {}, 0
+    word_dict = {}
+    word_dict[words[0]] = 1
     
-    for word in words:
-        first = word[0]
-        idx += 1
-        if idx == 1:
-            last = word[-1]
-            word_dict[word] = 1
-            continue
-        if last != first:
-            a = idx%n
-            b = math.ceil(idx/n)
-            if idx%n == 0:
-                a = n
-            return [a, b]
-        elif word in word_dict:
-            a = idx%n
-            b = math.ceil(idx/n)
-            if idx%n == 0:
-                a = n
-            return [a, b]
+    for i in range(1, len(words)):
+        first = words[i][0]
+        last = words[i-1][-1]
         
-        word_dict[word] = 1
-        last = word[-1]
-
-    return [0,0]
+        if first == last and words[i] not in word_dict:
+            word_dict[words[i]] = 1
+        else:
+            return [(i%n)+1, (i//n)+1]
+    
+    return [0, 0]
