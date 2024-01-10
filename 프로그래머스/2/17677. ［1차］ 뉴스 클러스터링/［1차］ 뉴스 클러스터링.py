@@ -42,5 +42,4 @@ def solution(str1, str2):
     if union == 0:
         return 65536
     else:
-        return int(inter/union * 65536) 
-    
+        return int(inter/union * 65536)
