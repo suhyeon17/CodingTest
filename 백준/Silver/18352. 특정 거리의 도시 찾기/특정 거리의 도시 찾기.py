@@ -1,43 +1,37 @@
+import sys
 from collections import deque
 
-n, m, k, x = map(int, input().split())
+N, M, K, X = map(int, sys.stdin.readline().split())
+graph = [[] for i in range(N+1)]
+for i in range(M):
+    city1, city2 = map(int, input().split())
+    graph[city1].append(city2)
+##########################################
 
-graph = [[] for i in range(n)]
-for i in range(m):
-    idx, city = map(int, input().split())
-    graph[idx-1].append(city)
+def bfs(graph, start, visited, cnt):
+    q = deque([start])
+    visited[start] = True
 
+    while q:
+        v = q.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                q.append(i)
+                visited[i] = True
+                cnt[i] = cnt[v] + 1
 
-def findCity(graph, start, visited, cnt, short):
-    queue = deque([start])
-    visited[start - 1] = True
+    return cnt
 
-    while queue:  # queue가 빌 때까지
-        v = queue.popleft()  # 큐에서 하나의 원소(방문한 원소) 뽑아서 출력
+answer = []
+cnt = [0] * (N+1)
+visited = [False] * (N+1)
+cnt = bfs(graph, X, visited, cnt)
 
-        for i in graph[v - 1]:  # 2, 3
-            if not visited[i - 1]:
-                queue.append(i)
-                visited[i - 1] = True
-                if v != start:
-                    cnt[i - 1] = 1 + cnt[v - 1]
-                else:
-                    cnt[i - 1] += 1
+for idx, c in enumerate(cnt):
+    if c == K:
+        answer.append(idx)
 
-    answer = []
-    for i in range(len(cnt)):
-        if cnt[i] == short:
-            answer.append(i + 1)
-
-    return answer
-
-city = [0] * n
-visited = [False] * n
-
-answer = findCity(graph, x, visited, city, k)
-
-if len(answer) == 0:
-    print('-1')
-else:
-    for i in range(len(answer)):
-        print(answer[i])
+if answer:
+    for a in answer:
+        print(a)
+else: print(-1)
