@@ -1,8 +1,8 @@
 def solution(s):
     num = []
-    s = s.split(' ')
+    s = s.split()
     
-    for n in s:
-        num.append(int(n))
-        
-    return '%d %d' %(min(num), max(num))
+    for i in s:
+        num.append(int(i))
+            
+    return str(min(num)) + ' ' + str(max(num))
