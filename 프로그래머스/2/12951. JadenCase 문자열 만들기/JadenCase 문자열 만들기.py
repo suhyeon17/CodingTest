@@ -1,13 +1,18 @@
 def solution(s):
-    JadenCase = ''
-    s = s.lower()
     s = s.split(' ')
     
+    answer = []
     for word in s:
-        if len(word) != 0:
-            new_word = word[0].upper() + word[1:]
-            JadenCase += new_word
+        if word == '':
+            answer.append(word)
+        elif word[0].isdigit():
+            tmp = word[0] + word[1:].lower()
+            answer.append(tmp)
+        else:
+            tmp = word[0].upper() + word[1:].lower()
+            answer.append(tmp)
             
-        JadenCase += ' '
+    return ' '.join(answer)
+            
+            
     
-    return JadenCase[:-1]
